@@ -1,0 +1,9 @@
+net/net_*
+net/*/*
+cache/*
+data.*
+results/*
+out/
+*.so
+storage
+tmp
