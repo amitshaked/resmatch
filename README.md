@@ -1,7 +1,7 @@
 Improved Stereo Matching with Constant Highway Networks and Reflective Loss
 ===================================================================================
 
-This implements the full pipeline of our paper [Improved Stereo Matching with Constant Highway Networks and Reflective Loss]() by Amit Shaked and Lior Wolf
+This implements the full pipeline of our paper [Improved Stereo Matching with Constant Highway Networks and Reflective Loss](https://arxiv.org/abs/1701.00165) by Amit Shaked and Lior Wolf
 
 The repository contains
 
@@ -20,13 +20,13 @@ If you already have Torch installed, update `nn`, `cunn`, and `cudnn`.
 data set and 12 GB to run on the Middlebury data set.
 
 The code is released under the BSD 2-Clause license.
-Please cite our [paper]()
+Please cite our [paper](https://arxiv.org/abs/1701.00165 )
 if you use code from this repository in your work.
 
 	@article{shaked2016stereo,
 	  title={Improved Stereo Matching with Constant Highway Networks and Reflective Loss},
-	  author={{Shaked, Amit and Wolf, Lior},
-	  journal={arXiv preprint },
+	  author={Shaked, Amit and Wolf, Lior},
+	  journal={arXiv preprint arxiv:1701.00165},
 	  year={2016}
 	}
 
