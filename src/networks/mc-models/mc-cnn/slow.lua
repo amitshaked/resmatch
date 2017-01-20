@@ -10,10 +10,6 @@ function McCnnSlow:__init(self, opt, dataset)
    self.criterion = nn.BCECriterion2():cuda()
 end
 
-local function createModel(opt, dataset)
-   return McCnnSlow:new(opt, dataset)
-end
-
 function McCnnSlow:getDescriptionNetwork()
    local description = nn.Sequential()
 
@@ -25,4 +21,4 @@ function McCnnSlow:getDescriptionNetwork()
    return description
 end
 
-return createModel
+return McCnnSlow
