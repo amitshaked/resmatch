@@ -1,14 +1,17 @@
-Dataset = require('dataset')
+Dataset = require('datasets/dataset')
 
-local MbDataset, parent = torch.class('MbDataset',Dataset)
+local MbDataset, parent = torch.class('MbDataset', 'Dataset')
 
 function MbDataset:__init(self, opt)
    parent.__init(parent, self, opt)
    self.name='mb'
 end
 
-function MbDataset:setParams()
-   --parameters for training
+local function createDataset(opt)
+   return MbDataset:new(opt)
+end
+
+function MbDataset:setParams(opt) --parameters for training
    self.true1 = 0.5
    self.false1 = 1.5
    self.false2 = 6
@@ -83,11 +86,11 @@ function MbDataset:load(opt)
 end
 
 function MbDataset:subset(ds,tr, subset)
-   local tr_2014 = sample(torch.range(11, 23):long(), subset)
-   local tr_2006 = sample(torch.range(24, 44):long(), subset)
-   local tr_2005 = sample(torch.range(45, 50):long(), subset)
-   local tr_2003 = sample(torch.range(51, 52):long(), subset)
-   local tr_2001 = sample(torch.range(53, 60):long(), subset)
+   local tr_2014 = Dataset.sample(torch.range(11, 23):long(), subset)
+   local tr_2006 = Dataset.sample(torch.range(24, 44):long(), subset)
+   local tr_2005 = Dataset.sample(torch.range(45, 50):long(), subset)
+   local tr_2003 = Dataset.sample(torch.range(51, 52):long(), subset)
+   local tr_2001 = Dataset.sample(torch.range(53, 60):long(), subset)
 
    local tr_subset = torch.cat(tr_2014, tr_2006)
    tr_subset = torch.cat(tr_subset, tr_2005)
@@ -167,3 +170,35 @@ function MbDataset:getLR(img)
    x1 = self.X[img][light_][{exp_,2}]
    return x0, x1
 end
+
+function fromfile(fname)
+   -- initialize a tensor of the proper type and dimensions from the file fname
+   local file = io.open(fname .. '.dim')
+   local dim = {}
+   for line in file:lines() do
+      table.insert(dim, tonumber(line))
+   end
+   if #dim == 1 and dim[1] == 0 then
+      return torch.Tensor()
+   end
+
+   local file = io.open(fname .. '.type')
+   local type = file:read('*all')
+
+   local x
+   if type == 'float32' then
+      x = torch.FloatTensor(torch.FloatStorage(fname))
+   elseif type == 'int32' then
+      x = torch.IntTensor(torch.IntStorage(fname))
+   elseif type == 'int64' then
+      x = torch.LongTensor(torch.LongStorage(fname))
+   else
+      print(fname, type)
+      assert(false)
+   end
+
+   x = x:reshape(torch.LongStorage(dim))
+   return x
+end
+
+return createDataset

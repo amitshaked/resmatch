@@ -65,6 +65,7 @@ function AcrtNetwork:setBestParams(opt, dataset )
 
       self.params.fm = opt.fm -- number of feature maps
       self.params.ks=3
+      self.params.l1=4 -- number of convolutional layers
       self.params.l2=4 -- number of fully connected layers
       self.params.nh2= opt.nh2
       self.params.bs =  opt.batch_size -- batch size
