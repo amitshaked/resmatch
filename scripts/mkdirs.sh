@@ -1,5 +1,6 @@
 #! /bin/sh
 
+mkdir -p tmp
 mkdir -p out
 mkdir -p storage
 mkdir -p results

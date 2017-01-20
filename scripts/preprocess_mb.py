@@ -172,7 +172,7 @@ for dir in sorted(os.listdir(base1)):
         save_pfm('tmp/disp1.pfm', disp1, 1)
         save_pfm('tmp/disp0y.pfm', disp0y, 1)
 
-        subprocess.check_output('/home/amit/MiddEval3/code/computemask tmp/disp0.pfm tmp/disp0y.pfm tmp/disp1.pfm -1 tmp/mask.png'.split())
+        subprocess.check_output('computemask tmp/disp0.pfm tmp/disp0y.pfm tmp/disp1.pfm -1 tmp/mask.png'.split())
 
         mask = cv2.imread('tmp/mask.png', 0)
         disp0[mask != 255] = 0
@@ -220,7 +220,7 @@ for year in (2006, 2005):
         save_pfm('tmp/disp0.pfm', disp0, 1)
         save_pfm('tmp/disp1.pfm', disp1, 1)
 
-        subprocess.check_output('/home/amit/MiddEval3/code/computemask tmp/disp0.pfm tmp/disp1.pfm -1 tmp/mask.png'.split())
+        subprocess.check_output('computemask tmp/disp0.pfm tmp/disp1.pfm -1 tmp/mask.png'.split())
 
         mask = cv2.imread('tmp/mask.png', 0)
         disp0[mask != 255] = 0
@@ -254,7 +254,7 @@ for dir in ('conesH', 'teddyH'):
     save_pfm('tmp/disp0.pfm', disp0, 1)
     save_pfm('tmp/disp1.pfm', disp1, 1)
 
-    subprocess.check_output('/home/amit/MiddEval3/code/computemask tmp/disp0.pfm tmp/disp1.pfm -1 tmp/mask.png'.split())
+    subprocess.check_output('computemask tmp/disp0.pfm tmp/disp1.pfm -1 tmp/mask.png'.split())
 
     mask = cv2.imread('tmp/mask.png', 0)
     disp0[mask != 255] = 0
@@ -298,7 +298,7 @@ for dir in sorted(os.listdir(base1)):
 
             save_pfm('tmp/disp0.pfm', disp0, 1)
             save_pfm('tmp/disp1.pfm', disp1, 1)
-            subprocess.check_output('/home/amit/MiddEval3/code/computemask tmp/disp0.pfm tmp/disp1.pfm -1 tmp/mask.png'.split())
+            subprocess.check_output('computemask tmp/disp0.pfm tmp/disp1.pfm -1 tmp/mask.png'.split())
 
             mask = cv2.imread('tmp/mask.png', 0)
         disp0[mask != 255] = 0

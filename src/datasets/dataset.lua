@@ -7,7 +7,7 @@ function Dataset:__init(self, opt)
    cutorch.manualSeed(opt.seed)
    self.__index = self
    self.n_colors = opt.color == 'rgb' and 3 or 1
-   self:setParams()
+   self:setParams(opt)
    self:load(opt)
    if opt.a == 'train_mcn' or opt.a == 'train_gdn' then
       self:prepareTrainingData(opt.subset, opt.all)
