@@ -1,3 +1,4 @@
+require 'paths'
 local network = require('networks/network')
 
 local M = {}
@@ -86,8 +87,15 @@ function MatchNet:load(opt)
       return nil
    else
       local checkpoint = torch.load(opt.mcnet)
-      local model = torch.load(checkpoint.modelPath)
-      local optimState = torch.load(checkpoint.optimPath)
+      local model, optimState
+      if checkpoint.modelPath and paths.filep(checkpoint.modelPath) then
+         model = torch.load(checkpoint.modelPath)
+         optimState = torch.load(checkpoint.optimPath)
+      else
+         model = checkpoint
+         checkpoint = nil
+      end
+
       self.description = model.description
       self.decision = model.decision
       self.net = nn.Sequential()

@@ -90,18 +90,24 @@ end
 
 function DispNet:load(opt)
    if opt.dispnet == '' then
-		print('===> Building new disparity network...')
+      print('===> Building new disparity network...')
       self:build()
       return nil
    else
       local checkpoint = torch.load(opt.dispnet)
-      local model = torch.load(checkpoint.modelPath)
-      local optimState = torch.load(checkpoint.optimPath)
+      local model, optimState
+      if checkpoint.modelPath and paths.filep(checkpoint.modelPath) then
+         model = torch.load(checkpoint.modelPath)
+         optimState = torch.load(checkpoint.optimPath)
+      else
+         model = checkpoint
+         checkpoint = nil
+      end
       self.net = model.net:cuda()
       self.params = model.params
       self.name = model.name
 
-		print('===> Loaded network '.. self.name)
+      print('===> Loaded network '.. self.name)
       return checkpoint, optimState
    end
 end
